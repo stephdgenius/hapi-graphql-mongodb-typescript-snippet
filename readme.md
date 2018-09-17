@@ -1,7 +1,5 @@
 # Hapi + GraphQL + MongoDB + Typescript - Snippet
 
----
-
 A powerfull api builded  with Mongo DB and GraphQL
 
 # Installation
