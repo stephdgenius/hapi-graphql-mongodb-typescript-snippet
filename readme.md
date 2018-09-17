@@ -23,6 +23,7 @@ App running on default port 4000
 # v1.1.0
 
 - [ ]  Auth with firebase
+- [ ]  Custom error
 
 # v1.0.0
 
