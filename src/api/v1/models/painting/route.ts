@@ -7,15 +7,22 @@ export default function (server : Hapi.Server, urlPrefix : string) {
     server.bind(controller);
 
     // Painting routes
-    server.route([
-        {
-            method: 'GET',
-            path: `${urlPrefix}/paintings`,
-            handler: controller.getAll
-        }, {
-            method: 'POST',
-            path: `${urlPrefix}/paintings`,
-            handler: controller.create
+    server.route({
+        method: 'GET',
+        path: `${urlPrefix}/paintings`,
+        handler: controller.getAll,
+        options: {
+            description: 'Get all the paintings',
+            tags: ['api', 'v1', 'painting']
         }
-    ]);
+    });
+    server.route({
+        method: 'POST',
+        path: `${urlPrefix}/paintings`,
+        handler: controller.create,
+        options: {
+            description: 'Get a specific painting by ID.',
+            tags: ['api', 'v1', 'painting']
+        }
+    });
 }
