@@ -17,13 +17,12 @@ export default class Server {
                     }
                 });
 
-                console.log('Loading all APIs routes and plugins...');
-                for (let index = 1; index < api.version + 1; index++) {
-                    this.loadPlugins(server, index);
-                    this.loadRouter(server, index);
-                }
+                this
+                    .loader(server, api)
+                    .then(() => {
+                        resolve(server);
+                    });
 
-                resolve(server);
             } catch (error) {
                 reject(error);
                 console.log('Error when starting server: ', error);
@@ -56,7 +55,7 @@ export default class Server {
                     pluginPromises.push(plugin.register(server, `/v${version}`));
                 });
             } catch (error) {
-                console.log('Error registring plugin: ', error);
+                console.log(`Error registring API v${version} plugins: ${error}`);
             }
         });
 
@@ -64,7 +63,6 @@ export default class Server {
             .all(pluginPromises)
             .then(() => {
                 console.log(`All plugins for API v${version} loaded sucessfully`);
-                console.log('pluginPromises: ', pluginPromises);
             });
     }
 
@@ -74,15 +72,31 @@ export default class Server {
      * @param version
      */
     private async loadRouter(server : Hapi.Server, version : number) {
+        try {
+            // Import router of selected API
+            const router = import (`./api/v${version}/router/router`).then((routes) => {
+                const apiRouter = new routes.default;
+                apiRouter
+                    .init(server, `/v${version}`)
+                    .then(() => {
+                        console.log(`API v${version} routes registered sucessfully`);
+                    });
+            });
+        } catch (error) {
+            console.log(`Error laoding API v${version} routes: ${error}`);
+        }
+    }
 
-        // Import router of selected API
-        const router = import (`./api/v${version}/router/router`).then((routes) => {
-            const apiRouter = new routes.default;
-            apiRouter
-                .init(server, `/v${version}`)
-                .then(() => {
-                    console.log(`API v${version} routes registered sucessfully`);
-                });
-        });
+    /**
+     * Load all APIs routes and plugins
+     * @param server
+     * @param api
+     */
+    private async loader(server : Hapi.Server, api : any) {
+        console.log('Loading all APIs routes and plugins...');
+        for (let index = 1; index < api.version + 1; index++) {
+            await this.loadPlugins(server, index);
+            await this.loadRouter(server, index);
+        }
     }
 }
