@@ -30,4 +30,4 @@ App running on default port 4000
 - [ ]  API Home page
 - [x]  MongDB with Mongoose
 - [x]  Project Structure
-- [ ]  Swagger
+- [x]  Swagger
