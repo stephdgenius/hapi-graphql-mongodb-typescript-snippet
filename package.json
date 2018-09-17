@@ -1,0 +1,41 @@
+{
+  "name": "graphql-nodejs-hapi-api-typescript",
+  "version": "1.0.0",
+  "description": "Example of API project with Hapi, graphql, MongoDB and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "npm install",
+    "build": "npx tsc",
+    "start": "npm run build && nodemon dist/index.js",
+    "watch": "nodemon --watch dist dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Steph DGenius",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "graphql": "^14.0.2",
+    "graphql-server-hapi": "^1.4.0",
+    "graphql-tools": "^3.1.1",
+    "hapi": "^17.5.4",
+    "hapi-swagger": "^9.1.1",
+    "inert": "^5.1.0",
+    "mongoose": "^5.2.14",
+    "nodemon": "^1.18.4",
+    "vision": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.0",
+    "@types/hapi": "^17.0.19",
+    "@types/mongoose": "^5.2.11",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  }
+}
