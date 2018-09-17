@@ -1,4 +1,5 @@
 import * as Hapi from 'hapi';
+import Path from 'path';
 
 // Interfaces
 import {IPlugin} from './api/v1/plugins/interfaces';
@@ -13,6 +14,9 @@ export default class Server {
                     routes: {
                         cors: {
                             origin: ['*']
+                        },
+                        files: {
+                            relativeTo: Path.join(__dirname, 'public')
                         }
                     }
                 });
