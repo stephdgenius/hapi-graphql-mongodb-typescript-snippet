@@ -7,7 +7,7 @@ export default class ApiRouter {
                 method: 'GET',
                 path: `/`,
                 handler() {
-                    return `<h1>BA APIs</h1>`;
+                    return `<h1>My APIs</h1>`;
                 }
             }
         ]);
