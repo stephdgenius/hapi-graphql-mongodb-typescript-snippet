@@ -1,13 +1,14 @@
 import {paintingRoute} from '../models';
+import Path from 'path';
 export default class ApiRouter {
 
     public async init(server : any, urlPrefix : string) {
         server.route([
             {
                 method: 'GET',
-                path: `/`,
-                handler() {
-                    return `<h1>My APIs</h1>`;
+                path: `/{path*}`,
+                handler: {
+                    file: 'index.html'
                 }
             }
         ]);

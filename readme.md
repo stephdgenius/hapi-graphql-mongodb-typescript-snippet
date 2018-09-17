@@ -27,7 +27,7 @@ App running on default port 4000
 # v1.0.0
 
 - [x]  Hapi JS - Rest API
-- [ ]  API Home page
+- [x]  API Home page
 - [x]  MongDB with Mongoose
 - [x]  Project Structure
 - [x]  Swagger
