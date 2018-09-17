@@ -1,8 +1,8 @@
-import mongoose, {Schema} from 'mongoose';
+import mongoose from 'mongoose';
 
 export function launch() {
     // We connect to the remote server
-    mongoose.connect('mongodb://badmin:DBba4560@ds249992.mlab.com:49992/bevoiceafrica', {useNewUrlParser: true});
+    mongoose.connect('mongodb://test:test12345@ds259742.mlab.com:59742/hapi-test', {useNewUrlParser: true});
 
     // We initialize the default connection of the mongoose module
     const mongoDb = mongoose.connection;
@@ -12,7 +12,7 @@ export function launch() {
         console.log(`Unable to connect to database: ${error}`);
     });
     mongoDb.once('open', () => {
-        console.log('Connnected to BA Database');
+        console.log('Connnected to database');
     });
 
     return console.log('Database launch complete');
