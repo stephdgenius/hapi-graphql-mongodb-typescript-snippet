@@ -12,8 +12,8 @@ export function launch() {
         console.log(`Unable to connect to database: ${error}`);
     });
     mongoDb.once('open', () => {
-        console.log('Connnected to database');
+        console.log('🌐  Connnected to database');
     });
 
-    return console.log('Database launch complete');
+    return true;
 }

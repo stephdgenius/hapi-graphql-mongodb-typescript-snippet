@@ -26,9 +26,9 @@ const start = async() => {
     try {
         const serverExec = await server.launch(api);
         await serverExec.start();
-        console.log('Server running at:', serverExec.info.uri);
+        console.log('🌐  Server running at:', serverExec.info.uri);
     } catch (err) {
-        console.error('Error starting server: ', err.message);
+        console.error('❌  Error starting server: ', err.message);
         throw err;
     }
 };

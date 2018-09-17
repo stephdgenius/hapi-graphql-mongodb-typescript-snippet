@@ -25,7 +25,7 @@ export default class Server {
 
             } catch (error) {
                 reject(error);
-                console.log('Error when starting server: ', error);
+                console.log('❌  Error when starting server: ', error);
                 throw error;
             }
         });
@@ -49,20 +49,20 @@ export default class Server {
                 pluginsList.forEach((pluginName : string) => {
                     const plugin : IPlugin = require(`./api/v${version}/plugins/${pluginName}`).default();
                     // tslint:disable-next-line:max-line-length
-                    console.log(`Register Plugin ${plugin.info().name} v${plugin.info().version} for API v${version}`);
+                    console.log(`✅  Register Plugin ${plugin.info().name} v${plugin.info().version} for API v${version}`);
 
                     // Register plugin
                     pluginPromises.push(plugin.register(server, `/v${version}`));
                 });
             } catch (error) {
-                console.log(`Error registring API v${version} plugins: ${error}`);
+                console.log(`❌  Error registring API v${version} plugins: ${error}`);
             }
         });
 
         await Promise
             .all(pluginPromises)
             .then(() => {
-                console.log(`All plugins for API v${version} loaded sucessfully`);
+                console.log(`✅  All plugins for API v${version} loaded sucessfully`);
             });
     }
 
@@ -79,11 +79,11 @@ export default class Server {
                 apiRouter
                     .init(server, `/v${version}`)
                     .then(() => {
-                        console.log(`API v${version} routes registered sucessfully`);
+                        console.log(`✅  API v${version} routes registered sucessfully`);
                     });
             });
         } catch (error) {
-            console.log(`Error laoding API v${version} routes: ${error}`);
+            console.log(`❌  Error laoding API v${version} routes: ${error}`);
         }
     }
 
@@ -93,7 +93,7 @@ export default class Server {
      * @param api
      */
     private async loader(server : Hapi.Server, api : any) {
-        console.log('Loading all APIs routes and plugins...');
+        console.log('🔄  Loading all APIs routes and plugins...');
         for (let index = 1; index < api.version + 1; index++) {
             await this.loadPlugins(server, index);
             await this.loadRouter(server, index);
