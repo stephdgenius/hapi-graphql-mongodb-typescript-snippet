@@ -21,7 +21,7 @@ export default function (server : Hapi.Server, urlPrefix : string) {
         path: `${urlPrefix}/paintings`,
         handler: controller.create,
         options: {
-            description: 'Get a specific painting by ID.',
+            description: 'Add a specific painting.',
             tags: ['api', 'v1', 'painting']
         }
     });

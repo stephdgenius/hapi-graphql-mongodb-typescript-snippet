@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "npm install npx -g && npm install",
-    "build": "npx tsc && npm run html",
+    "build": "npx tsc && npm run cp",
     "start": "npm run build && nodemon dist/index.js",
     "watch": "nodemon --watch dist dist/index.js",
-    "html": "copyfiles public/*.html dist/"
+    "cp": "copyfiles public/* dist/"
   },
   "repository": {
     "type": "git",
