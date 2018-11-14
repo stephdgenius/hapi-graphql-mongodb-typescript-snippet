@@ -2,7 +2,7 @@ import * as Hapi from 'hapi';
 import Path from 'path';
 
 // Interfaces
-import {IPlugin} from './api/v1/plugins/interfaces';
+import {IPlugin} from './api/plugins/interfaces';
 
 export default class Server {
     public launch(api : any) {
@@ -40,34 +40,31 @@ export default class Server {
      * @param server
      * @param version
      */
-    private async loadPlugins(server : Hapi.Server, version : number) {
+    private async loadPlugins(server : Hapi.Server) {
         const pluginPromises : Array < Promise < any >> = [];
         let pluginsList : string[] = [];
 
         // Import plugins list
-        const allPlugins = import (`./api/v${version}/plugins`).then((plugins) => {
+        const allPlugins = import (`./api/plugins`).then((plugins) => {
             try {
                 pluginsList = plugins.list;
 
                 // We go through the list of plugins
                 pluginsList.forEach((pluginName : string) => {
-                    const plugin : IPlugin = require(`./api/v${version}/plugins/${pluginName}`).default();
+                    const plugin : IPlugin = require(`./api/plugins/${pluginName}`).default();
                     // tslint:disable-next-line:max-line-length
-                    console.log(`✅  Register Plugin ${plugin.info().name} v${plugin.info().version} for API v${version}`);
+                    console.log(`✅  Register Plugin ${plugin.info().name} v${plugin.info().version}`);
 
                     // Register plugin
-                    pluginPromises.push(plugin.register(server, `/v${version}`));
+                    pluginPromises.push(plugin.register(server));
+                });
+                Promise.all(pluginPromises).then(() => {
+                    console.log(`✅  All plugins loaded sucessfully`);
                 });
             } catch (error) {
-                console.log(`❌  Error registring API v${version} plugins: ${error}`);
+                console.log(`❌  Error registring plugins: ${error}`);
             }
         });
-
-        await Promise
-            .all(pluginPromises)
-            .then(() => {
-                console.log(`✅  All plugins for API v${version} loaded sucessfully`);
-            });
     }
 
     /**
@@ -98,8 +95,8 @@ export default class Server {
      */
     private async loader(server : Hapi.Server, api : any) {
         console.log('🔄  Loading all APIs routes and plugins...');
+        await this.loadPlugins(server);
         for (let index = 1; index < api.version + 1; index++) {
-            await this.loadPlugins(server, index);
             await this.loadRouter(server, index);
         }
     }

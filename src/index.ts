@@ -1,5 +1,6 @@
 // import * as Database from './database';
 import Server from './server';
+import Database from './database';
 import Api from './api';
 
 // Catch unhandling unexpected exceptions
@@ -17,13 +18,18 @@ process.on('unhandledRejection', (reason : any) => {
 // Define modules
 const api = new Api();
 const server = new Server();
+const database = new Database();
 
 /**
- * Function for start API
+ * Function for start Server
  *
  */
 const start = async() => {
     try {
+        // Init Database Server
+        database.launch();
+
+        // Init API Server
         const serverExec = await server.launch(api);
         await serverExec.start();
         console.log('🌐  Server running at:', serverExec.info.uri);
@@ -32,12 +38,5 @@ const start = async() => {
         throw err;
     }
 };
-
-// Init Database
-for (let index = 1; index < api.version + 1; index++) {
-    // tslint:disable-next-line:no-var-requires
-    const database = require(`./api/v${index}`);
-    database.launch();
-}
 
 start();

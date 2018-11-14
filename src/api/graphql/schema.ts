@@ -1,7 +1,7 @@
 import {GraphQLObjectType, GraphQLString, GraphQLSchema} from 'graphql';
 
 import PaintingType from './paintingType';
-import {paintingModel} from '../models';
+import PaintingModel from '../models/painting';
 
 const rootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -15,7 +15,7 @@ const rootQuery = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 // Logic for serving data
-                return paintingModel.findById(args.id);
+                return PaintingModel    .findById(args.id);
             }
         }
     }

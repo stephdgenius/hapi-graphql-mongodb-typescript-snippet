@@ -4,7 +4,7 @@ import * as Hapi from 'hapi';
 import {IPlugin, IPluginInfo} from '../interfaces';
 
 // Async function for register plugin in Hapi
-const register = async(server : Hapi.Server, urlPrefix : string) : Promise < void > => {
+const register = async(server : Hapi.Server) : Promise < void > => {
     try {
         return server.register([
             require('inert'),
@@ -24,7 +24,7 @@ const register = async(server : Hapi.Server, urlPrefix : string) : Promise < voi
                     ],
                     swaggerUI: true,
                     documentationPage: true,
-                    documentationPath: `${urlPrefix}/docs`
+                    documentationPath: `/docs`
                 }
             }
         ]);

@@ -1,9 +1,10 @@
 import * as Hapi from 'hapi';
-import {paintingModel, paintingController} from '../index';
+import PaintingController from './controler';
+import PaintingModel from '../index';
 
 export default function (server : Hapi.Server, urlPrefix : string) {
     // Initialize painting controller for server
-    const controller = new paintingController();
+    const controller = new PaintingController();
     server.bind(controller);
 
     // Painting routes

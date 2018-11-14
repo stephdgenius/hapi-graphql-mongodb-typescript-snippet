@@ -1,7 +1,7 @@
 import * as Hapi from 'hapi';
 
 export interface IPlugin {
-    register(server : Hapi.Server, urlPrefix?: string) : Promise < void >;
+    register(server : Hapi.Server) : Promise < void >;
     info() : IPluginInfo;
 }
 

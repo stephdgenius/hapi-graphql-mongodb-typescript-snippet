@@ -1,4 +1,4 @@
-import {PaintingModel} from './schema';
+import PaintingModel from '../index';
 export default class PaintingController {
     // tslint:disable-next-line:no-empty
     constructor() {}
